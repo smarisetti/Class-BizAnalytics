@@ -66,6 +66,72 @@ where	exists (select	*
 
 select 	cname
 from	college c1
-where	not exists (select	*
+where	NOT EXISTS (select	*
 					from	college c2
 					where	c2.enrollment > c1.enrollment);
+select 	sname, gpa
+from	student c1
+where	NOT EXISTS (select	*
+					from	student c2
+					where	c2.gpa > c1.gpa);
+
+# what is wrong with this Query
+select s1.sname, s1.gpa
+from	student s1, student s2
+where 	s1.gpa > s2.gpa;
+
+select s1.sname, s1.gpa
+from	student s1, student s2
+where 	s1.gpa > s2.gpa;
+# ALL Operator
+select 	sname, gpa
+from	student
+where	gpa >= ALL (select	gpa
+					from	student);
+
+select 	sname
+from	student s1
+where	gpa > all (select 	gpa
+					from	student s2
+					where 	s2.sid <> s1.sid);
+# works only if students have unique gpa.
+
+# --------
+# College with highest enrollment
+select	cname
+from 	college s1
+where	enrollment > all (select	enrollment
+							from	college s2
+							where	s2.cname <> s1.cname);
+
+# Operator ANY
+select	cname
+from 	college s1
+where	NOT enrollment <= ANY (select	enrollment
+							from	college s2
+							where	s2.cname <> s1.cname);
+
+select	sid, sname, sizehs
+from	student
+where 	sizehs > any (select sizehs 
+						from student);
+# students not from the smallest high school
+
+# same as above query without using ANY operator
+select	sid, sname, sizehs
+from	student s1
+where	exists (select * 
+				from 	student s2
+				where s2.sizehs < s1.sizehs);
+
+# students who applied to CS but not to EE
+select 	sid, sname
+from	student
+where	sid = any (select sid from apply where major = 'CS' and
+		sid <> any (select sid from apply where major = 'EE')
+# what is wrong here?
+
+select 	sid, sname
+from	student
+where	sid = any (select sid from apply where major = 'CS' and
+		NOT sid = any (select sid from apply where major = 'EE')

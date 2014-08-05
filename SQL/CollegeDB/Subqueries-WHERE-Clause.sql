@@ -25,11 +25,6 @@ where 	sid in
 	 from 	apply
 	 where	major = 'CS');
 
-select 	gpa
-from	student, apply
-where 	student.sid = apply.sid and
-		apply.major = 'CS';
-
 # --------------
 # Problem 2:
 # NOT IN operator
@@ -53,7 +48,7 @@ select	cname, state
 from	college c1
 where	exists (select	*
 				from	college c2
-				where	c2.state = c1.state);
+				where	c2.state = c1.state );
 
 select	cname, state
 from	college c1
@@ -68,7 +63,8 @@ select 	cname
 from	college c1
 where	NOT EXISTS (select	*
 					from	college c2
-					where	c2.enrollment > c1.enrollment);
+					where	c1.enrollment < c2.enrollment );
+
 select 	sname, gpa
 from	student c1
 where	NOT EXISTS (select	*
@@ -77,12 +73,10 @@ where	NOT EXISTS (select	*
 
 # what is wrong with this Query
 select s1.sname, s1.gpa
-from	student s1, student s2
+from	student 
+s1, student s2
 where 	s1.gpa > s2.gpa;
 
-select s1.sname, s1.gpa
-from	student s1, student s2
-where 	s1.gpa > s2.gpa;
 # ALL Operator
 select 	sname, gpa
 from	student
@@ -110,7 +104,9 @@ from 	college s1
 where	NOT enrollment <= ANY (select	enrollment
 							from	college s2
 							where	s2.cname <> s1.cname);
+# this one works
 
+# ANY operator
 select	sid, sname, sizehs
 from	student
 where 	sizehs > any (select sizehs 
@@ -125,13 +121,14 @@ where	exists (select *
 				where s2.sizehs < s1.sizehs);
 
 # students who applied to CS but not to EE
-select 	sid, sname
-from	student
-where	sid = any (select sid from apply where major = 'CS' and
-		sid <> any (select sid from apply where major = 'EE')
+select 	student.sid, student.sname
+from	student, apply
+where	student.sid = any (select sid from apply where major = 'CS' and
+		student.sid <> any (select sid from apply where major = 'EE');
 # what is wrong here?
 
 select 	sid, sname
 from	student
 where	sid = any (select sid from apply where major = 'CS' and
-		NOT sid = any (select sid from apply where major = 'EE')
+		NOT sid = any (select sid from apply where major = 'EE');
+# correct query

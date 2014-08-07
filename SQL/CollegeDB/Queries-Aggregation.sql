@@ -8,7 +8,7 @@ from	student;
 select 	avg(gpa)
 from	student;
 
-select min(gpa)
+select avg(gpa)
 from 	student, apply
 where	student.sid = apply.sid and
 		major = 'CS';
@@ -16,14 +16,14 @@ where	student.sid = apply.sid and
 # if student has applied more than one college, their
 # GPA is counted twice. We need to count it only once
 
-select	*
+# correct query
+select	avg(gpa)
 from 	student
 where	sid IN (select sid
 			 from 	apply
 			 where major = 'CS');
 
-# correct query
-select	avg(gpa)
+select	*
 from 	student
 where	sid IN (select sid
 			 from 	apply
@@ -42,7 +42,7 @@ where 	cname = 'Cornell';
 # correct output
 
 # Students such that number of other students with same GPA
-# is equal tonumber of other students with same sizehs
+# is equal to number of other students with same sizehs
 
 select	*
 from	student s1
@@ -85,7 +85,7 @@ from	student, apply
 where	student.sid = apply.sid
 order by cname, major;
 
-select cname, major, min(GPA), Max(GPA)
+select cname, major, min(GPA), Max(GPA), max(gpa)-min(gpa) as spread
 from	student, apply
 where	student.sid = apply.sid
 group by cname, major;
@@ -94,8 +94,8 @@ group by cname, major;
 
 select max(mx-mn)
 from (select cname, major, min(GPA) mn, Max(GPA) mx
-from	student, apply
-where	student.sid = apply.sid
+	 from	student, apply
+	 where	student.sid = apply.sid
 group by cname, major) M;
 
 # Number of colleges applied to by each student

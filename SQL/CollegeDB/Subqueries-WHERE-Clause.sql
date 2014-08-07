@@ -44,7 +44,7 @@ where	sid in (select sid
 # Correlated Subqueries
 # Find all colleges such that some other college is in the same state
 
-select	cname, state
+select	cname, state  
 from	college c1
 where	exists (select	*
 				from	college c2
@@ -81,7 +81,7 @@ where 	s1.gpa > s2.gpa;
 select 	sname, gpa
 from	student
 where	gpa >= ALL (select	gpa
-					from	student);
+					from	student); 
 
 select 	sname
 from	student s1

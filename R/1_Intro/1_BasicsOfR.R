@@ -14,7 +14,7 @@ HoursYears <- 365 * 24
 HoursYears
 # variables are case sensitive
 ls()
-rm()
+rm(HoursYears)
 ls()
 
 # Vector - series of numbers stored as same object
@@ -34,11 +34,13 @@ LifeExpectancy[3]
 Sequence = seq(1,100,2)
 Sequence
 
+# Data Frame
 Data = data.frame(Country, LifeExpectancy)
 Data
 # Data frame maintains the data types
 # New vector Population
 Population = c(199000, 1390000, 1240000, 7997, 318000)
+# column binding
 Data2 = cbind(Data, Population)
 Data2
 # cbind - column binding)

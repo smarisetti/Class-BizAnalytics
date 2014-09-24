@@ -39,3 +39,6 @@ insert into Apply values (765, 'Stanford', 'history', 'Y');
 insert into Apply values (765, 'Cornell', 'history', 'N');
 insert into Apply values (765, 'Cornell', 'psychology', 'Y');
 insert into Apply values (543, 'MIT', 'CS', 'N');
+
+insert into Apply values (321, 'MIT', 'history', 'N');
+insert into Apply values (321, 'MIT', 'psychology','Y')

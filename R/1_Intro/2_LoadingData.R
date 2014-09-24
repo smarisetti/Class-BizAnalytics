@@ -29,6 +29,7 @@ which.min(WHO$Under15)
 WHO$Country[86]
 which.max(WHO$Under15)
 WHO$Country[124]
+plot(WHO$GNI, WHO$Under15)
 
 # Plot creation
 # GNI and Fertility
@@ -50,5 +51,3 @@ tapply(WHO$LiteracyRate, WHO$Region, min)
 # How do we remove the missing values?
 tapply(WHO$LiteracyRate, WHO$Region, min, na.rm=TRUE)
 # You see no more NA values
-
-# Saving file

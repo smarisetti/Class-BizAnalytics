@@ -1,8 +1,8 @@
-CPS=read.csv("1_Intro/CPSData.csv")
+CPS=read.csv("CPSData.csv")
 summary(CPS)
 str(CPS)
 
-# Among the interviewees with a value reported for the Industry variable, what is the most common industry of employment? Please enter the name exactly how you see it.
+# Among the interviewees with a value reported for the Industry variable, what is the most common industry of employment? 
 
 names(CPS)
 sort(table(CPS$Industry))
